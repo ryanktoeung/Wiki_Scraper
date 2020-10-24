@@ -6,11 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".readActivity">
 
-    <TextView
-        android:id="@+id/testTxt"
+    <EditText
+        android:id="@+id/wiki_URL_txt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="read area"
-        tools:layout_editor_absoluteX="176dp"
-        tools:layout_editor_absoluteY="229dp" />
+        android:layout_marginTop="228dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Enter Wikipedia Link"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/goBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="208dp"
+        android:text="GO"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/wiki_URL_txt"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
