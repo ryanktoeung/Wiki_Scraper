@@ -3,4 +3,5 @@
     <string name="get_website" />
     <string name="url" />
     <string name="enter_a_url" />
+    <string name="result" />
 </resources>

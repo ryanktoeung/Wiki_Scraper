@@ -5,28 +5,43 @@ import android.os.StrictMode
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_read.*
+import kotlinx.android.synthetic.main.activity_read.view.*
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
+import java.io.File
 import java.io.IOException
 
 
 class readActivity : AppCompatActivity() {
 
+    private var endTxt = "";
+    private var endTitle = "";
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_read)
 
         val search = findViewById<EditText>(R.id.searchTxt)
         val go = findViewById<Button>(R.id.btnParseHTML)
-        val textView = findViewById<TextView>(R.id.outputTxt)
+        val save = findViewById<Button>(R.id.saveBTN)
+        val textView = findViewById<TextView>(R.id.textView)
 
 
         go.setOnClickListener {
             val url:String = getWikiURL(search)
             getHtmlFromWeb(url,textView);
+        }
+        save.setOnClickListener {
+            Toast.makeText(getApplicationContext(), "Saving...", Toast.LENGTH_SHORT)
+                .show();
+
+            val path = this.getExternalFilesDir(null)
+            val folder = File(path, "pages")
+            folder.mkdirs()
+            val file = File(folder, "$endTitle.txt")
+            file.appendText(endTxt)
         }
     }
 
@@ -63,6 +78,7 @@ class readActivity : AppCompatActivity() {
                 val doc: Document = Jsoup.connect(url).get()
 
                 val title: String = doc.title()
+                endTitle = title
                 val body: Elements = doc.select("p")
 
                 stringBuilder.append(title).append("\n")
@@ -72,7 +88,10 @@ class readActivity : AppCompatActivity() {
             } catch (e: IOException) {
                 stringBuilder.append("Error : ").append(e.message).append("\n")
             }
-            runOnUiThread { outputTxt.text = stringBuilder.toString() }
+
+            endTxt = stringBuilder.toString();
+            runOnUiThread { textView.text = stringBuilder.toString() }
         }).start()
     }
+
 }
