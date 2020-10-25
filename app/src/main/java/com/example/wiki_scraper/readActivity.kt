@@ -26,7 +26,6 @@ class readActivity : AppCompatActivity() {
 
         go.setOnClickListener {
             val url:String = getWikiURL(search)
-            println("URL : " + url);
             getHtmlFromWeb(url,textView);
         }
     }
@@ -35,16 +34,24 @@ class readActivity : AppCompatActivity() {
     {
         var startText:String = "https://www.google.co.in/search?q=wikipedia+"
         var check:String = search.text.toString()
-        check = check.replace("\\s".toRegex(), "_");
+        var url = "";
+        check = check.replace("\\s".toRegex(), "+");
         for(element in check)
         {
             startText += element;
         }
-        val policy =
-            StrictMode.ThreadPolicy.Builder().permitAll().build()
+
+        val policy = StrictMode.ThreadPolicy.Builder()
+            .permitAll().build()
         StrictMode.setThreadPolicy(policy)
-        val doc:Document = Jsoup.connect(startText).get()
-        return doc.select("h3 a").attr("href")
+        val doc = Jsoup.connect(startText).get()
+        val links = doc.select("a[href]")
+        for(link in links)
+        {
+            if(link.attr("href").contains("en.wikipedia.org/wiki/"))
+                return link.attr("href")
+        }
+        return ""
     }
 
 
@@ -68,36 +75,4 @@ class readActivity : AppCompatActivity() {
             runOnUiThread { outputTxt.text = stringBuilder.toString() }
         }).start()
     }
-    /*
-fun scrapeWiki(wiki: EditText)
-{
-
-    var title:String = ""
-    var url:String = ""
-    var indexVal = 0
-
-
-    val listOfWord:List<String> = emptyList()
-
-    println(startText);
-
-    Jsoup.connect(startText).get().run{
-            select("div.rc").forEachIndexed{index, element ->
-            val titleAnchor = element.select("h3 a")        //Title is not going through
-            title = titleAnchor.text()
-            url = titleAnchor.attr("href")                          //URL is not getting read
-            indexVal = index
-            val i:Intent = Intent(this@readActivity, getActivity::class.java)
-            var listOfVals = arrayListOf<String>()
-            listOfVals.add("$indexVal. $title ($url)")
-            i.putStringArrayListExtra("listOfVals", listOfVals)
-            startActivity(i)
-    }
-
-//            println("$index. $title ($url)")
-    }
-
-
-    }
-     */
 }
