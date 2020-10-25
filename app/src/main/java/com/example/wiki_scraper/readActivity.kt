@@ -17,8 +17,8 @@ import java.io.IOException
 
 class readActivity : AppCompatActivity() {
 
-    private var endTxt = "";
-    private var endTitle = "";
+    public var endTxt = "";
+    public var endTitle = "";
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_read)
@@ -38,10 +38,12 @@ class readActivity : AppCompatActivity() {
                 .show();
 
             val path = this.getExternalFilesDir(null)
+
             val folder = File(path, "pages")
             folder.mkdirs()
+
             val file = File(folder, "$endTitle.txt")
-            file.appendText(endTxt)
+            file.appendText("$endTxt")
         }
     }
 
@@ -85,6 +87,7 @@ class readActivity : AppCompatActivity() {
                 for (body in body) {
                     stringBuilder.append("\n").append(body.text())
                 }
+
             } catch (e: IOException) {
                 stringBuilder.append("Error : ").append(e.message).append("\n")
             }
