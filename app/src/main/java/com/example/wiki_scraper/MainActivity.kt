@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
             val i = Intent(
                 this,
                 readActivity::class.java
-            );         //If user login's with correct info, will redirect to the next page
+            );
             startActivity(i);
         }
 
@@ -26,7 +26,7 @@ class MainActivity : AppCompatActivity() {
             val i = Intent(
                 this,
                 getActivity::class.java
-            );         //If user login's with correct info, will redirect to the next page
+            );
             startActivity(i);
         }
     }

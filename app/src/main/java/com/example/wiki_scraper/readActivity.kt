@@ -1,5 +1,6 @@
 package com.example.wiki_scraper
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.StrictMode
 import android.widget.Button
@@ -7,7 +8,6 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_read.view.*
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.select.Elements
@@ -17,8 +17,9 @@ import java.io.IOException
 
 class readActivity : AppCompatActivity() {
 
-    public var endTxt = "";
-    public var endTitle = "";
+    private var endTxt = ""
+    private var endTitle = ""
+    private val listOfTitles = ArrayList<String>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_read)
@@ -26,12 +27,13 @@ class readActivity : AppCompatActivity() {
         val search = findViewById<EditText>(R.id.searchTxt)
         val go = findViewById<Button>(R.id.btnParseHTML)
         val save = findViewById<Button>(R.id.saveBTN)
-        val textView = findViewById<TextView>(R.id.textView)
+        val textView = findViewById<TextView>(R.id.outputTxt)
+
 
 
         go.setOnClickListener {
             val url:String = getWikiURL(search)
-            getHtmlFromWeb(url,textView);
+            getHtmlFromWeb(url, textView)
         }
         save.setOnClickListener {
             Toast.makeText(getApplicationContext(), "Saving...", Toast.LENGTH_SHORT)
@@ -44,6 +46,9 @@ class readActivity : AppCompatActivity() {
 
             val file = File(folder, "$endTitle.txt")
             file.appendText("$endTxt")
+            val intent = Intent(this, readActivity::class.java)
+            intent.putExtra("titles", listOfTitles)
+            this.startActivity(intent)
         }
     }
 
@@ -81,6 +86,7 @@ class readActivity : AppCompatActivity() {
 
                 val title: String = doc.title()
                 endTitle = title
+                listOfTitles.add(title);
                 val body: Elements = doc.select("p")
 
                 stringBuilder.append(title).append("\n")
@@ -96,5 +102,4 @@ class readActivity : AppCompatActivity() {
             runOnUiThread { textView.text = stringBuilder.toString() }
         }).start()
     }
-
 }

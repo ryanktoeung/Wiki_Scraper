@@ -6,13 +6,48 @@
     android:layout_height="match_parent"
     tools:context=".getActivity">
 
-    <TextView
-        android:id="@+id/outputTxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Results...."
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="386dp"
+        android:layout_height="594dp"
+        android:paddingTop="80dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.386"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/outTxt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="results"
+                android:textColor="@android:color/background_dark"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+    </ScrollView>
+
+    <Spinner
+        android:id="@+id/titleChoices"
+        android:layout_width="347dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="24dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/getDataBtn"
+        android:layout_width="88dp"
+        android:layout_height="40dp"
+        android:text="GO"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleChoices" />
 </androidx.constraintlayout.widget.ConstraintLayout>
