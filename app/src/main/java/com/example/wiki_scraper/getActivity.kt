@@ -1,45 +1,50 @@
 package com.example.wiki_scraper
 
-import android.net.wifi.aware.ParcelablePeerHandle
+import android.app.AlertDialog
+import android.content.DialogInterface
 import android.os.Bundle
-import android.os.Parcelable
-import android.view.View
-import android.widget.*
-import android.widget.AdapterView.OnItemSelectedListener
+import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import java.io.File
+
 
 class getActivity : AppCompatActivity() {
 
     private var titleChosen = "";
+    private var listOfTitles = mutableListOf<String>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_get)
 
-        val choices = findViewById<Spinner>(R.id.titleChoices)
+        val choices = findViewById<Button>(R.id.titleBtn)
         val outTxt = findViewById<TextView>(R.id.outTxt)
-        val listOfTitles = intent.getStringArrayExtra("listOfTitles")
-        println("Titles : " + listOfTitles[0])
+//        val listOfTitles = intent.getStringArrayExtra("listOfTitles")
         val start = findViewById<Button>(R.id.getDataBtn)
         val output = findViewById<TextView>(R.id.outputTxt)
 
+        supportActionBar?.title = "Access Saved Results"
+        setArrayOfTitles()
 
-        if(choices != null) {
-            val adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, listOfTitles)
-            choices.adapter = adapter
-            choices.setOnItemSelectedListener(object : OnItemSelectedListener {
-                override fun onItemSelected(parent: AdapterView<*>, view: View, pos: Int, id: Long) {
-                    titleChosen = parent.getItemAtPosition(pos) as String
-                }
-
-                override fun onNothingSelected(parent: AdapterView<*>?) {}
+        choices.setOnClickListener {
+            val titles = listOfTitles.toTypedArray()
+            val builder: AlertDialog.Builder = android.app.AlertDialog.Builder(this)
+            builder.setTitle("Choose the title")
+            builder.setItems(titles, DialogInterface.OnClickListener { dialog, which ->
+                titleChosen = titles[which]
+                if(titleChosen[titleChosen.length-1] == ' ')
+                    titleChosen = titleChosen.substring(0, titleChosen.length - 1);
             })
+            builder.show()
         }
 
 
-
         start.setOnClickListener {
-            val inStream = File("$titleChosen.txt").inputStream()
+            val path = this.getExternalFilesDir(null)
+
+            val folder = File(path, "pages")
+            folder.mkdirs()
+            val inStream = File(folder,"$titleChosen.txt").inputStream()
             val inString = inStream.bufferedReader().use{it.readText()}
             if(inString != null)
                 outTxt.text = inString;
@@ -48,4 +53,30 @@ class getActivity : AppCompatActivity() {
         }
 
     }
+    private fun setArrayOfTitles() {
+        var size = 0
+        val path = this.getExternalFilesDir(null)
+        val folder = File(path, "pages")
+        folder.mkdirs()
+        val titleFile = File(folder, "titles.txt").readLines()
+        for (element in titleFile) {
+            if(!element.isBlank())
+                if(listOfTitles.isEmpty())
+                    listOfTitles.add(element)
+                else
+                {
+                    if(listOfTitles.size == 1)  //If size is 1, it will set to 1
+                        size = 1
+                    else
+                        size = listOfTitles.size - 1;   //Other wise go to size - 1
+                    for (i in 0 until size)
+                    {
+                        if (listOfTitles[i] != element)
+                            if(!listOfTitles.contains(element))
+                                listOfTitles.add(element)
+                    }
+                }
+        }
+    }
+
 }

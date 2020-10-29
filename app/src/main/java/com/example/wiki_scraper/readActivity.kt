@@ -19,7 +19,6 @@ class readActivity : AppCompatActivity() {
 
     private var endTxt = ""
     private var endTitle = ""
-    private val listOfTitles = ArrayList<String>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_read)
@@ -28,6 +27,8 @@ class readActivity : AppCompatActivity() {
         val go = findViewById<Button>(R.id.btnParseHTML)
         val save = findViewById<Button>(R.id.saveBTN)
         val textView = findViewById<TextView>(R.id.outputTxt)
+
+        supportActionBar?.title = "Search for Wikipedia"
 
 
 
@@ -46,9 +47,10 @@ class readActivity : AppCompatActivity() {
 
             val file = File(folder, "$endTitle.txt")
             file.appendText("$endTxt")
-            val intent = Intent(this, readActivity::class.java)
-            intent.putExtra("titles", listOfTitles)
-            this.startActivity(intent)
+
+            val titleFile = File(folder, "titles.txt")
+            titleFile.appendText("$endTitle \n")
+
         }
     }
 
@@ -86,7 +88,6 @@ class readActivity : AppCompatActivity() {
 
                 val title: String = doc.title()
                 endTitle = title
-                listOfTitles.add(title);
                 val body: Elements = doc.select("p")
 
                 stringBuilder.append(title).append("\n")
