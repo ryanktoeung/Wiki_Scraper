@@ -19,9 +19,7 @@ class getActivity : AppCompatActivity() {
 
         val choices = findViewById<Button>(R.id.titleBtn)
         val outTxt = findViewById<TextView>(R.id.outTxt)
-//        val listOfTitles = intent.getStringArrayExtra("listOfTitles")
         val start = findViewById<Button>(R.id.getDataBtn)
-        val output = findViewById<TextView>(R.id.outputTxt)
 
         supportActionBar?.title = "Access Saved Results"
         setArrayOfTitles()
@@ -32,7 +30,7 @@ class getActivity : AppCompatActivity() {
             builder.setTitle("Choose the title")
             builder.setItems(titles, DialogInterface.OnClickListener { dialog, which ->
                 titleChosen = titles[which]
-                if(titleChosen[titleChosen.length-1] == ' ')
+                if(titleChosen[titleChosen.length-1] == ' ')        //Remove the end space
                     titleChosen = titleChosen.substring(0, titleChosen.length - 1);
             })
             builder.show()

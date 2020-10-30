@@ -26,6 +26,7 @@ class readActivity : AppCompatActivity() {
         val search = findViewById<EditText>(R.id.searchTxt)
         val go = findViewById<Button>(R.id.btnParseHTML)
         val save = findViewById<Button>(R.id.saveBTN)
+        val accessFile = findViewById<Button>(R.id.accessFilesBtn)
         val textView = findViewById<TextView>(R.id.outputTxt)
 
         supportActionBar?.title = "Search for Wikipedia"
@@ -50,7 +51,14 @@ class readActivity : AppCompatActivity() {
 
             val titleFile = File(folder, "titles.txt")
             titleFile.appendText("$endTitle \n")
+        }
 
+        accessFile.setOnClickListener{
+            val i = Intent(
+                this,
+                getActivity::class.java
+            );
+            startActivity(i);
         }
     }
 
