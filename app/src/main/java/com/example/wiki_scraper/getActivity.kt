@@ -20,6 +20,7 @@ class getActivity : AppCompatActivity() {
         val choices = findViewById<Button>(R.id.titleBtn)
         val outTxt = findViewById<TextView>(R.id.outTxt)
         val start = findViewById<Button>(R.id.getDataBtn)
+        val chosen = findViewById<TextView>(R.id.chosenTxt)
 
         supportActionBar?.title = "Access Saved Results"
         setArrayOfTitles()
@@ -32,6 +33,7 @@ class getActivity : AppCompatActivity() {
                 titleChosen = titles[which]
                 if(titleChosen[titleChosen.length-1] == ' ')        //Remove the end space
                     titleChosen = titleChosen.substring(0, titleChosen.length - 1);
+                chosen.text = "Chosen : $titleChosen"
             })
             builder.show()
         }
@@ -76,5 +78,4 @@ class getActivity : AppCompatActivity() {
                 }
         }
     }
-
 }
