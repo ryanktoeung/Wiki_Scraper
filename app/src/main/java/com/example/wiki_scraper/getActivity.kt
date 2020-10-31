@@ -19,7 +19,7 @@ class getActivity : AppCompatActivity() {
 
         val choices = findViewById<Button>(R.id.titleBtn)
         val outTxt = findViewById<TextView>(R.id.outTxt)
-        val start = findViewById<Button>(R.id.getDataBtn)
+        //val start = findViewById<Button>(R.id.getDataBtn)
         val chosen = findViewById<TextView>(R.id.chosenTxt)
 
         supportActionBar?.title = "Access Saved Results"
@@ -34,25 +34,25 @@ class getActivity : AppCompatActivity() {
                 if(titleChosen[titleChosen.length-1] == ' ')        //Remove the end space
                     titleChosen = titleChosen.substring(0, titleChosen.length - 1);
                 chosen.text = "Chosen : $titleChosen"
+                displayFile(outTxt)
             })
             builder.show()
         }
-
-
-        start.setOnClickListener {
-            val path = this.getExternalFilesDir(null)
-
-            val folder = File(path, "pages")
-            folder.mkdirs()
-            val inStream = File(folder,"$titleChosen.txt").inputStream()
-            val inString = inStream.bufferedReader().use{it.readText()}
-            if(inString != null)
-                outTxt.text = inString;
-            else
-                outTxt.text = "Nothing available"
-        }
-
     }
+
+    private fun displayFile(outTxt: TextView) {
+        val path = this.getExternalFilesDir(null)
+
+        val folder = File(path, "pages")
+        folder.mkdirs()
+        val inStream = File(folder,"$titleChosen.txt").inputStream()
+        val inString = inStream.bufferedReader().use{it.readText()}
+        if(inString != null)
+            outTxt.text = inString;
+        else
+            outTxt.text = "Nothing available"
+    }
+
     private fun setArrayOfTitles() {
         var size = 0
         val path = this.getExternalFilesDir(null)

@@ -4,4 +4,11 @@
     <string name="url" />
     <string name="enter_a_url" />
     <string name="result" />
+    <string name="read">Read</string>
+    <string name="save">SAVE</string>
+    <string name="files">Files</string>
+    <string name="search_here">Search Here</string>
+    <string name="choose_title">Choose Title</string>
+    <string name="chosen">"Chosen: "</string>
+    <string name="chosen_2">Chosen:</string>
 </resources>

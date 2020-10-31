@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import java.io.File
 
 class MainActivity : AppCompatActivity() {
 
@@ -13,6 +14,24 @@ class MainActivity : AppCompatActivity() {
 
         val read = findViewById<Button>(R.id.readBtn)
         val get = findViewById<Button>(R.id.getBtn)
+
+        supportActionBar?.title = "Home"
+
+        // Check if titles.txt exists
+        val fileName = "titles.txt"
+        val path = this.getExternalFilesDir(null)
+        val folder = File(path, "pages")
+        val file = File(folder, fileName)
+
+        val fileExists = file.exists()
+
+        if(!fileExists){
+            val folder = File(path, "pages")
+            folder.mkdirs()
+
+            val file = File(folder, fileName)
+            file.appendText("")
+        }
 
         read.setOnClickListener {
             val i = Intent(

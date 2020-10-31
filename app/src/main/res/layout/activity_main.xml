@@ -4,42 +4,77 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     tools:context=".MainActivity">
-
-    <Button
-        android:id="@+id/readBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Read"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/getBtn"
-        app:layout_constraintHorizontal_bias="0.503"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcomeTxt"
-        app:layout_constraintVertical_bias="0.391" />
-
-    <Button
-        android:id="@+id/getBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="72dp"
-        android:layout_marginRight="72dp"
-        android:text="Get"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/welcomeTxt"
-        app:layout_constraintVertical_bias="0.391" />
 
     <TextView
         android:id="@+id/welcomeTxt"
-        android:layout_width="388dp"
-        android:layout_height="73dp"
-        android:layout_marginTop="224dp"
-        android:text="Welcome to our Wiki Scraper Application"
-        android:textSize="21sp"
-        android:textStyle="bold|italic"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#03256C"
+        android:fontFamily="serif-monospace"
+        android:gravity="center"
+        android:text="\n\nWiki_Scraper\n\n"
+        android:textColor="#FFFFFF"
+        android:textSize="48sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.695"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/createdTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:fontFamily="serif-monospace"
+        android:gravity="center"
+        android:text="\nCreated By:\nCory Kim\nEdward Hwang\nRyan Toeung"
+        android:textColor="#000000"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toTopOf="@+id/createdTxt"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/welcomeTxt"
+        app:layout_constraintVertical_bias="0.0">
+
+        <Button
+            android:id="@+id/readBtn"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/button_teal"
+            android:fadingEdge="none"
+            android:fontFamily="serif-monospace"
+            android:shadowColor="#000000"
+            android:text="Read"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp" />
+
+        <Button
+            android:id="@+id/getBtn"
+            style="@style/Widget.AppCompat.Button"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/button_pink"
+            android:fadingEdge="none"
+            android:fontFamily="serif-monospace"
+            android:shadowColor="#000000"
+            android:text="Get"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
