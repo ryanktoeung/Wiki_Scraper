@@ -17,14 +17,16 @@ class getActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_get)
 
+        // initialize variables
         val choices = findViewById<Button>(R.id.titleBtn)
         val outTxt = findViewById<TextView>(R.id.outTxt)
-        //val start = findViewById<Button>(R.id.getDataBtn)
         val chosen = findViewById<TextView>(R.id.chosenTxt)
 
+        // Change Action Bar Name
         supportActionBar?.title = "Access Saved Results"
         setArrayOfTitles()
 
+        // Choose Button
         choices.setOnClickListener {
             val titles = listOfTitles.toTypedArray()
             val builder: AlertDialog.Builder = android.app.AlertDialog.Builder(this)
@@ -37,12 +39,12 @@ class getActivity : AppCompatActivity() {
                 displayFile(outTxt)
             })
             builder.show()
-        }
-    }
+        } // end choose
+    } // end onCreate
 
+    // Display name of file
     private fun displayFile(outTxt: TextView) {
         val path = this.getExternalFilesDir(null)
-
         val folder = File(path, "pages")
         folder.mkdirs()
         val inStream = File(folder,"$titleChosen.txt").inputStream()
@@ -51,8 +53,9 @@ class getActivity : AppCompatActivity() {
             outTxt.text = inString;
         else
             outTxt.text = "Nothing available"
-    }
+    } // end display name
 
+    // Display downloaded files
     private fun setArrayOfTitles() {
         var size = 0
         val path = this.getExternalFilesDir(null)
@@ -77,5 +80,5 @@ class getActivity : AppCompatActivity() {
                     }
                 }
         }
-    }
-}
+    } // end display downloads
+} // end getActivity

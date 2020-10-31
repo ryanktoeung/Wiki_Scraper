@@ -12,9 +12,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        // Initialize Read and Get Button
         val read = findViewById<Button>(R.id.readBtn)
         val get = findViewById<Button>(R.id.getBtn)
 
+        // Change Action Bar Name
         supportActionBar?.title = "Home"
 
         // Check if titles.txt exists
@@ -31,22 +33,24 @@ class MainActivity : AppCompatActivity() {
 
             val file = File(folder, fileName)
             file.appendText("")
-        }
+        } // end check title
 
+        // Read Button
         read.setOnClickListener {
             val i = Intent(
                 this,
                 readActivity::class.java
             );
             startActivity(i);
-        }
+        } // end Read Button
 
+        // Get Button
         get.setOnClickListener {
             val i = Intent(
                 this,
                 getActivity::class.java
             );
             startActivity(i);
-        }
-    }
-}
+        } // end Get Button
+    } // end onCreate
+} // end MainActivity
